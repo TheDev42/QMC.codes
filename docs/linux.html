@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands - Self-Hosted Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-section {
+            padding: 8rem 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .content-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .tutorial-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary-color);
+        }
+
+        .tutorial-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .tutorial-card h3 {
+            color: var(--accent-color);
+            margin: 1.5rem 0 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #c9d1d9;
+            white-space: pre;
+        }
+
+        .code-block .comment {
+            color: #8b949e;
+        }
+
+        .code-block .keyword {
+            color: #ff7b72;
+        }
+
+        .code-block .string {
+            color: #a5d6ff;
+        }
+
+        .code-block .command {
+            color: #7ee787;
+        }
+
+        .code-block .flag {
+            color: #ffa657;
+        }
+
+        .command-category {
+            margin-bottom: 3rem;
+        }
+
+        .command-category h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .command-table tr {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.3s ease;
+        }
+
+        .command-table tr:hover {
+            background: rgba(36, 150, 237, 0.1);
+        }
+
+        .command-table td {
+            padding: 1rem;
+            vertical-align: top;
+        }
+
+        .command-table td:first-child {
+            white-space: nowrap;
+            width: 180px;
+        }
+
+        .command-table code {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .command-description {
+            color: var(--text-muted);
+        }
+
+        .tip-box {
+            background: rgba(36, 150, 237, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .back-link::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+
+        .quick-reference {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .quick-ref-item {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .quick-ref-item:hover {
+            transform: scale(1.05);
+            background: rgba(36, 150, 237, 0.2);
+        }
+
+        .quick-ref-item code {
+            color: var(--accent-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .linux-commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .linux-command-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .linux-command-card:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.02);
+        }
+
+        .linux-command-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .linux-command-card code {
+            display: block;
+            background: #0d1117;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            color: #7ee787;
+        }
+
+        .linux-command-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="linux.html" class="active">Linux Commands</a></li>
+            <li><a href="networking.html">Networking</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <a href="index.html" class="back-link">Back to Home</a>
+        
+        <div class="content-header">
+            <h1>🐧 Linux Commands</h1>
+            <p>Master essential Linux commands for server management</p>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>File System Navigation</h2>
+            
+            <div class="linux-commands-grid">
+                <div class="linux-command-card">
+                    <h4>📁 List Contents</h4>
+                    <code>ls</code>
+                    <p>List directory contents</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📋 List All Files</h4>
+                    <code>ls -la</code>
+                    <p>List all files with details</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>🔄 Change Directory</h4>
+                    <code>cd [dir]</code>
+                    <p>Change to specified directory</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📍 Print Directory</h4>
+                    <code>pwd</code>
+                    <p>Print working directory</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>➕ Create Directory</h4>
+                    <code>mkdir [name]</code>
+                    <p>Create a new directory</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>➖ Remove Directory</h4>
+                    <code>rmdir [name]</code>
+                    <p>Remove empty directory</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>🌳 Directory Tree</h4>
+                    <code>tree</code>
+                    <p>Display directory tree structure</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>File Operations</h2>
+            
+            <div class="linux-commands-grid">
+                <div class="linux-command-card">
+                    <h4>📄 Copy File</h4>
+                    <code>cp [src] [dest]</code>
+                    <p>Copy files from source to destination</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📂 Copy Directory</h4>
+                    <code>cp -r [src] [dest]</code>
+                    <p>Copy directories recursively</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>✏️ Move/Rename</h4>
+                    <code>mv [src] [dest]</code>
+                    <p>Move or rename files and directories</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>🗑️ Remove File</h4>
+                    <code>rm [file]</code>
+                    <p>Remove a file</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>💥 Force Remove</h4>
+                    <code>rm -rf [dir]</code>
+                    <p>Force remove directory and contents</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📝 Create File</h4>
+                    <code>touch [file]</code>
+                    <p>Create an empty file</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📖 View File</h4>
+                    <code>cat [file]</code>
+                    <p>Display file contents</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>📑 Paginated View</h4>
+                    <code>less [file]</code>
+                    <p>View file with pagination</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>⬆️ First Lines</h4>
+                    <code>head -n [file]</code>
+                    <p>Show first n lines of file</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>⬇️ Last Lines</h4>
+                    <code>tail -n [file]</code>
+                    <p>Show last n lines of file</p>
+                </div>
+
+                <div class="linux-command-card">
+                    <h4>🔢 Count Lines</h4>
+                    <code>wc -l [file]</code>
+                    <p>Count lines in a file</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Text Editing with Vim/Nano</h2>
+            
+            <h3>Nano (Beginner Friendly)</h3>
+            <div class="code-block">
+                <code><span class="command">nano</span> filename.txt     <span class="comment"># Open file in nano</span>
+<span class="comment"># Use Ctrl+O to save, Ctrl+X to exit</span></code>
+            </div>
+            
+            <h3>Vim (Power User)</h3>
+            <div class="code-block">
+                <code><span class="command">vim</span> filename.txt     <span class="comment"># Open file in vim</span>
+
+<span class="comment"># Normal Mode:</span>
+i                       <span class="comment"># Insert mode</span>
+Esc                    <span class="comment"># Back to normal</span>
+:w                     <span class="comment"># Save</span>
+:q                     <span class="comment"># Quit</span>
+:wq                    <span class="comment"># Save and quit</span>
+:q!                    <span class="comment"># Force quit</span>
+dd                     <span class="comment"># Delete line</span>
+yy                     <span class="comment"># Copy line</span>
+p                      <span class="comment"># Paste</span>
+/search                <span class="comment"># Search</span>
+n                      <span class="comment"># Next search result</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>User & Permissions</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code>whoami</code></td>
+                    <td class="command-description">Display current user</td>
+                </tr>
+                <tr>
+                    <td><code>sudo [cmd]</code></td>
+                    <td class="command-description">Run command as root</td>
+                </tr>
+                <tr>
+                    <td><code>adduser [name]</code></td>
+                    <td class="command-description">Add new user</td>
+                </tr>
+                <tr>
+                    <td><code>deluser [name]</code></td>
+                    <td class="command-description">Remove user</td>
+                </tr>
+                <tr>
+                    <td><code>passwd [user]</code></td>
+                    <td class="command-description">Change user password</td>
+                </tr>
+                <tr>
+                    <td><code>chmod [perm] [file]</code></td>
+                    <td class="command-description">Change file permissions</td>
+                </tr>
+                <tr>
+                    <td><code>chown [user:group] [file]</code></td>
+                    <td class="command-description">Change file owner</td>
+                </tr>
+            </table>
+            
+            <div class="code-block">
+                <code><span class="comment"># Permission examples:</span>
+<span class="command">chmod</span> 755 script.sh        <span class="comment"># rwxr-xr-x</span>
+<span class="command">chmod</span> +x script.sh         <span class="comment"># Add execute permission</span>
+<span class="command">chmod</span> -R 755 folder/      <span class="comment"># Recursive permissions</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>System Monitoring</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code>top</code></td>
+                    <td class="command-description">View running processes</td>
+                </tr>
+                <tr>
+                    <td><code>htop</code></td>
+                    <td class="command-description">Interactive process viewer</td>
+                </tr>
+                <tr>
+                    <td><code>ps aux</code></td>
+                    <td class="command-description">List all processes</td>
+                </tr>
+                <tr>
+                    <td><code>kill [pid]</code></td>
+                    <td class="command-description">Kill process by ID</td>
+                </tr>
+                <tr>
+                    <td><code>killall [name]</code></td>
+                    <td class="command-description">Kill process by name</td>
+                </tr>
+                <tr>
+                    <td><code>df -h</code></td>
+                    <td class="command-description">Disk usage (human readable)</td>
+                </tr>
+                <tr>
+                    <td><code>du -sh [dir]</code></td>
+                    <td class="command-description">Directory size</td>
+                </tr>
+                <tr>
+                    <td><code>free -h</code></td>
+                    <td class="command-description">Memory usage</td>
+                </tr>
+                <tr>
+                    <td><code>uptime</code></td>
+                    <td class="command-description">System uptime</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Networking</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code>ip addr</code></td>
+                    <td class="command-description">Show IP addresses</td>
+                </tr>
+                <tr>
+                    <td><code>ip route</code></td>
+                    <td class="command-description">Show routing table</td>
+                </tr>
+                <tr>
+                    <td><code>ping [host]</code></td>
+                    <td class="command-description">Ping a host</td>
+                </tr>
+                <tr>
+                    <td><code>curl [url]</code></td>
+                    <td class="command-description">Make HTTP request</td>
+                </tr>
+                <tr>
+                    <td><code>wget [url]</code></td>
+                    <td class="command-description">Download file</td>
+                </tr>
+                <tr>
+                    <td><code>netstat -tulpn</code></td>
+                    <td class="command-description">Show listening ports</td>
+                </tr>
+                <tr>
+                    <td><code>ss -tulpn</code></td>
+                    <td class="command-description">Socket statistics</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Package Management</h2>
+            
+            <h3>APT (Debian/Ubuntu)</h3>
+            <div class="code-block">
+                <code><span class="command">sudo</span> apt update              <span class="comment"># Update package list</span>
+<span class="command">sudo</span> apt upgrade             <span class="comment"># Upgrade packages</span>
+<span class="command">sudo</span> apt install [pkg]       <span class="comment"># Install package</span>
+<span class="command">sudo</span> apt remove [pkg]        <span class="comment"># Remove package</span>
+<span class="command">sudo</span> apt search [term]       <span class="comment"># Search packages</span>
+<span class="command">apt</span> list --installed        <span class="comment"># List installed</span></code>
+            </div>
+            
+            <h3>YUM/DNF (RHEL/CentOS/Fedora)</h3>
+            <div class="code-block">
+                <code><span class="command">sudo</span> dnf update             <span class="comment"># Update packages</span>
+<span class="command">sudo</span> dnf install [pkg]      <span class="comment"># Install package</span>
+<span class="command">sudo</span> dnf remove [pkg]       <span class="comment"># Remove package</span>
+<span class="command">dnf</span> search [term]           <span class="comment"># Search packages</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Service Management</h2>
+            
+            <div class="code-block">
+                <code><span class="comment"># Systemd (most modern distros)</span>
+<span class="command">sudo</span> systemctl start nginx      <span class="comment"># Start service</span>
+<span class="command">sudo</span> systemctl stop nginx       <span class="comment"># Stop service</span>
+<span class="command">sudo</span> systemctl restart nginx   <span class="comment"># Restart service</span>
+<span class="command">sudo</span> systemctl status nginx     <span class="comment"># Check status</span>
+<span class="command">sudo</span> systemctl enable nginx     <span class="comment"># Enable on boot</span>
+<span class="command">sudo</span> systemctl disable nginx    <span class="comment"># Disable on boot</span>
+<span class="command">systemctl</span> list-units --type=service  <span class="comment"># List services</span></code>
+            </div>
+            
+            <div class="code-block">
+                <code><span class="comment"># Init.d (older systems)</span>
+<span class="command">sudo</span> /etc/init.d/nginx start
+<span class="command">sudo</span> /etc/init.d/nginx stop
+<span class="command">sudo</span> /etc/init.d/nginx status</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>SSH & Remote Access</h2>
+            
+            <div class="code-block">
+                <code><span class="comment"># Connect to remote server</span>
+<span class="command">ssh</span> user@hostname
+<span class="command">ssh</span> -p 2222 user@hostname    <span class="comment"># Custom port</span>
+<span class="command">ssh</span> -i key.pem user@host     <span class="comment"># SSH key auth</span>
+
+<span class="comment"># Copy files over SSH</span>
+<span class="command">scp</span> file.txt user@host:/path/
+<span class="command">scp</span> -r folder/ user@host:/path/
+
+<span class="comment"># SSH key generation</span>
+<span class="command">ssh-keygen</span> -t rsa -b 4096</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Archives & Compression</h2>
+            
+            <div class="code-block">
+                <code><span class="comment"># Tar (archive)</span>
+<span class="command">tar</span> -cvf archive.tar dir/       <span class="comment"># Create</span>
+<span class="command">tar</span> -xvf archive.tar            <span class="comment"># Extract</span>
+<span class="command">tar</span> -cvzf archive.tar.gz dir/   <span class="comment"># Create gzip</span>
+<span class="command">tar</span> -xvzf archive.tar.gz        <span class="comment"># Extract gzip</span>
+
+<span class="comment"># Zip</span>
+<span class="command">zip</span> -r archive.zip dir/
+<span class="command">unzip</span> archive.zip</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Useful Shortcuts</h2>
+            
+            <div class="quick-reference">
+                <div class="quick-ref-item">
+                    <code>Ctrl + C</code>
+                    <p>Cancel current command</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + Z</code>
+                    <p>Suspend current command</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + L</code>
+                    <p>Clear screen</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + A</code>
+                    <p>Go to line start</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + E</code>
+                    <p>Go to line end</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + U</code>
+                    <p>Clear line before cursor</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Ctrl + K</code>
+                    <p>Clear line after cursor</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>Tab</code>
+                    <p>Auto-complete</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>↑ / ↓</code>
+                    <p>Command history</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>man [cmd]</code>
+                    <p>Command manual</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>[cmd] --help</code>
+                    <p>Command help</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code>history</code>
+                    <p>Command history</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

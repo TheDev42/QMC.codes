@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker - Self-Hosted Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-section {
+            padding: 8rem 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .content-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .tutorial-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary-color);
+        }
+
+        .tutorial-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .tutorial-card h3 {
+            color: var(--accent-color);
+            margin: 1.5rem 0 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #c9d1d9;
+            white-space: pre;
+        }
+
+        .code-block .comment {
+            color: #8b949e;
+        }
+
+        .code-block .keyword {
+            color: #ff7b72;
+        }
+
+        .code-block .string {
+            color: #a5d6ff;
+        }
+
+        .code-block .command {
+            color: #7ee787;
+        }
+
+        .code-block .flag {
+            color: #ffa657;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .tip-box {
+            background: rgba(36, 150, 237, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip-box strong {
+            color: var(--primary-color);
+        }
+
+        .command-list {
+            list-style: none;
+        }
+
+        .command-list li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .command-list li:hover {
+            background: rgba(36, 150, 237, 0.1);
+        }
+
+        .command-list code {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin-right: 1rem;
+        }
+
+        .docker-commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .docker-command-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .docker-command-card:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.02);
+        }
+
+        .docker-command-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .docker-command-card code {
+            display: block;
+            background: #0d1117;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+            color: #7ee787;
+        }
+
+        .docker-command-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .back-link::before {
+            content: '←';
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docker.html" class="active">Docker</a></li>
+            <li><a href="linux.html">Linux Commands</a></li>
+            <li><a href="networking.html">Networking</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <a href="index.html" class="back-link">Back to Home</a>
+        
+        <div class="content-header">
+            <h1>🐳 Docker Basics</h1>
+            <p>Learn how to containerize your applications with Docker</p>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>What is Docker?</h2>
+            <p>Docker is a platform for developing, shipping, and running applications in containers. Containers are lightweight and contain everything needed to run the software.</p>
+            
+            <div class="tip-box">
+                <strong>💡 Key Benefit:</strong> Docker allows you to package an application with all of its dependencies into a standardized unit for software development.
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Installing Docker</h2>
+            
+            <h3>On Ubuntu/Debian:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Update package index</span>
+<span class="command">sudo</span> apt update
+
+<span class="comment"># Install dependencies</span>
+<span class="command">sudo</span> apt install <span class="flag">-y</span> apt-transport-https ca-certificates curl software-properties-common
+
+<span class="comment"># Add Docker GPG key</span>
+<span class="command">curl</span> -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+<span class="comment"># Add Docker repository</span>
+<span class="command">echo</span> <span class="string">"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"</span> | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+<span class="comment"># Install Docker</span>
+<span class="command">sudo</span> apt update
+<span class="command">sudo</span> apt install <span class="flag">-y</span> docker-ce docker-ce-cli containerd.io
+
+<span class="comment"># Start and enable Docker</span>
+<span class="command">sudo</span> systemctl start docker
+<span class="command">sudo</span> systemctl enable docker</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Essential Docker Commands</h2>
+            
+            <div class="docker-commands-grid">
+                <div class="docker-command-card">
+                    <h4>🔍 Check Docker Version</h4>
+                    <code>docker --version</code>
+                    <p>Display the Docker version information</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>📋 List Containers</h4>
+                    <code>docker ps -a</code>
+                    <p>Show all containers (running and stopped)</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🖼️ List Images</h4>
+                    <code>docker images</code>
+                    <p>Show all Docker images on your system</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>▶️ Run a Container</h4>
+                    <code>docker run -d nginx</code>
+                    <p>Run nginx container in detached mode</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🛑 Stop Container</h4>
+                    <code>docker stop container_id</code>
+                    <p>Stop a running container</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🗑️ Remove Container</h4>
+                    <code>docker rm container_id</code>
+                    <p>Remove a stopped container</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>📥 Pull Image</h4>
+                    <code>docker pull ubuntu:latest</code>
+                    <p>Download an image from Docker Hub</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🔨 Build Image</h4>
+                    <code>docker build -t myapp .</code>
+                    <p>Build an image from Dockerfile</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🌐 Map Ports</h4>
+                    <code>docker run -p 8080:80 nginx</code>
+                    <p>Map container port 80 to host port 8080</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>📁 Mount Volume</h4>
+                    <code>docker run -v /data:/data nginx</code>
+                    <p>Mount host directory to container</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>📝 View Logs</h4>
+                    <code>docker logs container_id</code>
+                    <p>View logs from a container</p>
+                </div>
+
+                <div class="docker-command-card">
+                    <h4>🔄 Restart Container</h4>
+                    <code>docker restart container_id</code>
+                    <p>Restart a container</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Creating a Dockerfile</h2>
+            <p>A Dockerfile is a script that contains instructions to build a Docker image.</p>
+            
+            <div class="code-block">
+                <code><span class="comment"># Use official Node.js image as base</span>
+<span class="keyword">FROM</span> node:18-alpine
+
+<span class="comment"># Set working directory</span>
+<span class="keyword">WORKDIR</span> /app
+
+<span class="comment"># Copy package files</span>
+<span class="keyword">COPY</span> package*.json ./
+
+<span class="comment"># Install dependencies</span>
+<span class="keyword">RUN</span> npm install
+
+<span class="comment"># Copy application files</span>
+<span class="keyword">COPY</span> . .
+
+<span class="comment"># Expose port</span>
+<span class="keyword">EXPOSE</span> 3000
+
+<span class="comment"># Define startup command</span>
+<span class="keyword">CMD</span> [<span class="string">"node", "index.js"</span>]</code>
+            </div>
+
+            <h3>Dockerfile Instructions:</h3>
+            <ul class="command-list">
+                <li><code>FROM</code> - Base image to start from</li>
+                <li><code>WORKDIR</code> - Set working directory</li>
+                <li><code>COPY</code> - Copy files to container</li>
+                <li><code>RUN</code> - Execute commands during build</li>
+                <li><code>EXPOSE</code> - Document the port</li>
+                <li><code>CMD</code> - Default command to run</li>
+                <li><code>ENV</code> - Set environment variables</li>
+            </ul>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Docker Compose</h2>
+            <p>Docker Compose is a tool for defining and running multi-container Docker applications.</p>
+            
+            <div class="code-block">
+                <code><span class="keyword">version</span>: <span class="string">'3.8'</span>
+<span class="keyword">services</span>:
+  <span class="command">web</span>:
+    <span class="command">build</span>: .
+    <span class="command">ports</span>:
+      - <span class="string">"3000:3000"</span>
+    <span class="command">volumes</span>:
+      - <span class="string">.:/app"</span>
+    <span class="command">environment</span>:
+      - <span class="string">NODE_ENV=development"</span>
+
+  <span class="command">redis</span>:
+    <span class="command">image</span>: <span class="string">"redis:alpine"</span>
+    <span class="command">ports</span>:
+      - <span class="string">"6379:6379"</span></code>
+            </div>
+
+            <h3>Docker Compose Commands:</h3>
+            <ul class="command-list">
+                <li><code>docker-compose up -d</code> - Start all services</li>
+                <li><code>docker-compose down</code> - Stop all services</li>
+                <li><code>docker-compose ps</code> - List services</li>
+                <li><code>docker-compose logs -f</code> - View logs</li>
+                <li><code>docker-compose restart</code> - Restart services</li>
+            </ul>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Common Docker Use Cases</h2>
+            
+            <h3>Running a Web Server (Nginx)</h3>
+            <div class="code-block">
+                <code><span class="comment"># Run nginx with port mapping and volume mount</span>
+<span class="command">docker</span> run <span class="flag">-d</span> <span class="flag">-p</span> 8080:80 <span class="flag">--name</span> mynginx <span class="flag">-v</span> /var/www/html:/usr/share/nginx/html nginx</code>
+            </div>
+
+            <h3>Running a Database (PostgreSQL)</h3>
+            <div class="code-block">
+                <code><span class="comment"># Run PostgreSQL with environment variables</span>
+<span class="command">docker</span> run <span class="flag">-d</span> <span class="flag">--name</span> postgres <span class="flag">-e</span> POSTGRES_PASSWORD=secret <span class="flag">-e</span> POSTGRES_DB=mydb <span class="flag">-p</span> 5432:5432 postgres</code>
+            </div>
+
+            <h3>Running a Ghost Blog</h3>
+            <div class="code-block">
+                <code><span class="comment"># Run Ghost CMS</span>
+<span class="command">docker</span> run <span class="flag">-d</span> <span class="flag">--name</span> ghost <span class="flag">-p</span> 2368:2368 <span class="flag">-v</span> ghost content:/var/lib/ghost/content ghost</code>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Always use <code>-d</code> flag to run containers in detached mode (background). Use <code>docker logs -f container_name</code> to view logs.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
