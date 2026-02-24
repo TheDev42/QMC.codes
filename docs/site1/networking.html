@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking - Self-Hosted Applications Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">SelfHost Guide</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search commands...">
+                <button id="searchBtn">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docker.html">Docker</a></li>
+                <li><a href="linux.html">Linux Commands</a></li>
+                <li><a href="proxmox.html">Proxmox</a></li>
+                <li><a href="networking.html" class="active">Networking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-page">
+            <h1>🌐 Networking Guide</h1>
+            
+            <section>
+                <h2>Understanding Network Basics</h2>
+                <p>Networking is the foundation of self-hosting. This guide covers everything from basic IP configuration to advanced network setups.</p>
+                
+                <div class="info-box">
+                    <strong>Key Concept:</strong> Understanding TCP/IP, subnetting, and routing is essential for running self-hosted services.
+                </div>
+            </section>
+
+            <section>
+                <h2>IP Addressing</h2>
+                
+                <div class="command-item">
+                    <h4>Check IP Address</h4>
+                    <p>Display all network interfaces and IPs</p>
+                    <div class="code-block">
+                        <pre><code>ip addr show</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show Only IPv4</h4>
+                    <p>Display IPv4 addresses only</p>
+                    <div class="code-block">
+                        <pre><code>ip -4 addr</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Add IP Address</h4>
+                    <p>Assign IP to interface</p>
+                    <div class="code-block">
+                        <pre><code>ip addr add 192.168.1.100/24 dev eth0</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove IP Address</h4>
+                    <p>Remove IP from interface</p>
+                    <div class="code-block">
+                        <pre><code>ip addr del 192.168.1.100/24 dev eth0</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Network Interfaces</h2>
+                
+                <div class="command-item">
+                    <h4>Enable Interface</h4>
+                    <p>Bring network interface up</p>
+                    <div class="code-block">
+                        <pre><code>ip link set eth0 up</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Disable Interface</h4>
+                    <p>Bring network interface down</p>
+                    <div class="code-block">
+                        <pre><code>ip link set eth0 down</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show Interface Status</h4>
+                    <p>Display all interfaces</p>
+                    <div class="code-block">
+                        <pre><code>ip link show</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Routing</h2>
+                
+                <div class="command-item">
+                    <h4>Show Routing Table</h4>
+                    <p>Display kernel routing table</p>
+                    <div class="code-block">
+                        <pre><code>ip route</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Add Static Route</h4>
+                    <p>Add new route to network</p>
+                    <div class="code-block">
+                        <pre><code>ip route add 192.168.50.0/24 via 192.168.1.1</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Delete Route</h4>
+                    <p>Remove a route</p>
+                    <div class="code-block">
+                        <pre><code>ip route del 192.168.50.0/24</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Default Gateway</h4>
+                    <p>Set default gateway</p>
+                    <div class="code-block">
+                        <pre><code>ip route add default via 192.168.1.1</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>DNS Configuration</h2>
+                
+                <div class="command-item">
+                    <h4>Test DNS Lookup</h4>
+                    <p>Query DNS for domain</p>
+                    <div class="code-block">
+                        <pre><code>nslookup google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>DNS Lookup with dig</h4>
+                    <p>Detailed DNS query</p>
+                    <div class="code-block">
+                        <pre><code>dig google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Flush DNS Cache</h4>
+                    <p>Clear DNS resolver cache</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemd-resolve --flush-caches</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>View DNS Servers</h4>
+                    <p>Show current DNS configuration</p>
+                    <div class="code-block">
+                        <pre><code>cat /etc/resolv.conf</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Network Testing</h2>
+                
+                <div class="command-item">
+                    <h4>Ping Test</h4>
+                    <p>Test connectivity to host</p>
+                    <div class="code-block">
+                        <pre><code>ping -c 4 google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Continuous Ping</h4>
+                    <p>Ping continuously</p>
+                    <div class="code-block">
+                        <pre><code>ping 8.8.8.8</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Trace Route</h4>
+                    <p>Trace packet path to destination</p>
+                    <div class="code-block">
+                        <pre><code>traceroute google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Network Path Analysis</h4>
+                    <p>Modern traceroute alternative</p>
+                    <div class="code-block">
+                        <pre><code>tracepath google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Test Port Connectivity</h4>
+                    <p>Check if port is open</p>
+                    <div class="code-block">
+                        <pre><code>nc -zv example.com 80</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Port Management</h2>
+                
+                <div class="command-item">
+                    <h4>List Open Ports</h4>
+                    <p>Show all listening ports</p>
+                    <div class="code-block">
+                        <pre><code>ss -tulpn</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List Network Connections</h4>
+                    <p>Show all network connections</p>
+                    <div class="code-block">
+                        <pre><code>ss -tan</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Check Port Usage</h4>
+                    <p>Find process using specific port</p>
+                    <div class="code-block">
+                        <pre><code>sudo lsof -i :80</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show Process by Port</h4>
+                    <p>Find PID using port</p>
+                    <div class="code-block">
+                        <pre><code>sudo netstat -tulpn | grep :80</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Firewall (UFW)</h2>
+                
+                <div class="command-item">
+                    <h4>Allow Port</h4>
+                    <p>Open port for traffic</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw allow 80/tcp</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Allow Service</h4>
+                    <p>Allow by service name</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw allow nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Deny Port</h4>
+                    <p>Block port</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw deny 80/tcp</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show Status</h4>
+                    <p>List all firewall rules</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw status</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Enable Firewall</h4>
+                    <p>Turn on UFW</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw enable</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Disable Firewall</h4>
+                    <p>Turn off UFW</p>
+                    <div class="code-block">
+                        <pre><code>sudo ufw disable</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Physical Networking Basics</h2>
+                
+                <h3>Network Equipment</h3>
+                <ul>
+                    <li><strong>Router:</strong> Connects your network to the internet, directs traffic between networks</li>
+                    <li><strong>Switch:</strong> Connects devices within the same network (Layer 2)</li>
+                    <li><strong>Access Point:</strong> Provides wireless connectivity</li>
+                    <li><strong>Modem:</strong> Converts digital signals to analog for internet connection</li>
+                    <li><strong>Firewall:</strong> Monitors and controls incoming/outgoing network traffic</li>
+                </ul>
+                
+                <div class="info-box">
+                    <strong>Tip:</strong> For self-hosting, use a dedicated router or a router with DD-WRT/OpenWrt firmware for more control.
+                </div>
+            </section>
+
+            <section>
+                <h2>Home Network Setup</h2>
+                
+                <h3>Typical Setup</h3>
+                <ol>
+                    <li><strong>Modem</strong> - Provided by ISP, connects to internet</li>
+                    <li><strong>Router</strong> - Connects to modem, creates local network</li>
+                    <li><strong>Switch</strong> - Expand wired connections</li>
+                    <li><strong>Servers</strong> - Your self-hosted applications</li>
+                </ol>
+                
+                <h3>IP Address Ranges (Private)</h3>
+                <ul>
+                    <li>10.0.0.0 - 10.255.255.255 (Class A)</li>
+                    <li>172.16.0.0 - 172.31.255.255 (Class B)</li>
+                    <li>192.168.0.0 - 192.168.255.255 (Class C) - Most common for home networks</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Port Forwarding</h2>
+                <p>Port forwarding directs external traffic to the correct internal device.</p>
+                
+                <div class="command-item">
+                    <h4>Example: Forward Port 80</h4>
+                    <p>Forward external port 80 to internal server</p>
+                    <div class="code-block">
+                        <pre><code># Router configuration example
+External Port: 80
+Internal IP: 192.168.1.100
+Internal Port: 80
+Protocol: TCP</code></pre>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Security Note:</strong> Only forward ports that are absolutely necessary and always use firewalls!
+                </div>
+            </section>
+
+            <section>
+                <h2>Static IP Configuration</h2>
+                
+                <h3>Ubuntu/Debian (Netplan)</h3>
+                <div class="code-block">
+                    <pre><code>network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - 192.168.1.100/24
+      routes:
+        - to: default
+          via: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4</code></pre>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Apply Netplan</h4>
+                    <p>Apply network changes</p>
+                    <div class="code-block">
+                        <pre><code>sudo netplan apply</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>DHCP Reservations</h2>
+                <p>Reserve specific IP addresses for servers so they always get the same IP.</p>
+                
+                <div class="info-box">
+                    <strong>Best Practice:</strong> Always assign static IPs to servers running self-hosted services.
+                </div>
+            </section>
+
+            <section>
+                <h2>VLANs (Virtual LANs)</h2>
+                <p>Segment network for better security and organization.</p>
+                
+                <div class="command-item">
+                    <h4>Create VLAN Interface</h4>
+                    <p>Add VLAN tag to network</p>
+                    <div class="code-block">
+                        <pre><code>ip link add link eth0 name eth0.10 type vlan id 10</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Assign IP to VLAN</h4>
+                    <p>Configure VLAN interface</p>
+                    <div class="code-block">
+                        <pre><code>ip addr add 192.168.10.1/24 dev eth0.10</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Network Troubleshooting</h2>
+                
+                <div class="command-item">
+                    <h4>Check Connectivity</h4>
+                    <p>Test basic connectivity</p>
+                    <div class="code-block">
+                        <pre><code>ping -c 3 8.8.8.8</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Check DNS</h4>
+                    <p>Verify DNS resolution</p>
+                    <div class="code-block">
+                        <pre><code>nslookup google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Check Gateway</h4>
+                    <p>Verify default gateway</p>
+                    <div class="code-block">
+                        <pre><code>ip route | grep default</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Check Interface Stats</h4>
+                    <p>View network errors</p>
+                    <div class="code-block">
+                        <pre><code>ip -s link show eth0</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>ARP Table</h4>
+                    <p>Show MAC addresses</p>
+                    <div class="code-block">
+                        <pre><code>ip neigh</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Common Network Terms</h2>
+                <ul>
+                    <li><strong>TCP:</strong> Transmission Control Protocol - reliable, ordered delivery</li>
+                    <li><strong>UDP:</strong> User Datagram Protocol - faster, no guarantee</li>
+                    <li><strong>DNS:</strong> Domain Name System - translates names to IPs</li>
+                    <li><strong>DHCP:</strong> Dynamic Host Configuration Protocol - auto-assigns IPs</li>
+                    <li><strong>NAT:</strong> Network Address Translation - shares one IP</li>
+                    <li><strong>VPN:</strong> Virtual Private Network - encrypted tunnel</li>
+                    <li><strong>Subnet Mask:</strong> Divides IP into network and host parts</li>
+                    <li><strong>Gateway:</strong> Entry/exit point of network</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Applications Guide. Built for educational purposes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

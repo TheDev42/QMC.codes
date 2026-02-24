@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxmox - Self-Hosted Applications Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">SelfHost Guide</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search commands...">
+                <button id="searchBtn">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docker.html">Docker</a></li>
+                <li><a href="linux.html">Linux Commands</a></li>
+                <li><a href="proxmox.html" class="active">Proxmox</a></li>
+                <li><a href="networking.html">Networking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-page">
+            <h1>🖥️ Proxmox Virtualization Guide</h1>
+            
+            <section>
+                <h2>What is Proxmox?</h2>
+                <p>Proxmox VE (Virtual Environment) is an open-source server virtualization platform that combines KVM hypervisor and LXC containers in a single, easy-to-use solution.</p>
+                
+                <div class="info-box">
+                    <strong>Key Concept:</strong> Proxmox uses a web-based interface for managing virtual machines and containers, making it accessible even for beginners.
+                </div>
+            </section>
+
+            <section>
+                <h2>Installing Proxmox VE</h2>
+                
+                <h3>System Requirements</h3>
+                <ul>
+                    <li>CPU: 64-bit (Intel VT-x/AMD-V)</li>
+                    <li>RAM: Minimum 2GB (recommended 4GB+)</li>
+                    <li>Disk: Minimum 32GB</li>
+                    <li>Network: Ethernet adapter</li>
+                </ul>
+                
+                <h3>Download and Install</h3>
+                <ol>
+                    <li>Download ISO from <a href="https://www.proxmox.com" target="_blank">proxmox.com</a></li>
+                    <li>Burn ISO to USB or DVD</li>
+                    <li>Boot from media and follow installer wizard</li>
+                    <li>Configure network settings during installation</li>
+                    <li>Set root password and email for notifications</li>
+                    <li>Access web interface at https://your-ip-address:8006</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Basic Configuration</h2>
+                
+                <div class="command-item">
+                    <h4>Update System</h4>
+                    <p>Update Proxmox packages</p>
+                    <div class="code-block">
+                        <pre><code>apt update && apt upgrade -y</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove Enterprise Repository</h4>
+                    <p>Remove trial subscription message</p>
+                    <div class="code-block">
+                        <pre><code>rm /etc/apt/sources.list.d/pve-enterprise.list</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Add No-Subscription Repository</h4>
+                    <p>Add useful testing repository</p>
+                    <div class="code-block">
+                        <pre><code>echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" | tee /etc/apt/sources.list.d/pve-no-subscription.list</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Creating Virtual Machines</h2>
+                
+                <div class="command-item">
+                    <h4>Create VM via Command Line</h4>
+                    <p>Create QEMU/KVM virtual machine</p>
+                    <div class="code-block">
+                        <pre><code>qm create 100 --name "my-vm" --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0 --ostype l26 --ide0 local-lvm:vm-100-disk-0,size=20G</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List All VMs</h4>
+                    <p>Show all virtual machines</p>
+                    <div class="code-block">
+                        <pre><code>qm list</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Start VM</h4>
+                    <p>Boot up virtual machine</p>
+                    <div class="code-block">
+                        <pre><code>qm start 100</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Stop VM</h4>
+                    <p>Shut down virtual machine</p>
+                    <div class="code-block">
+                        <pre><code>qm stop 100</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove VM</h4>
+                    <p>Delete virtual machine</p>
+                    <div class="code-block">
+                        <pre><code>qm destroy 100</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show VM Config</h4>
+                    <p>View VM configuration</p>
+                    <div class="code-block">
+                        <pre><code>qm config 100</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Clone VM</h4>
+                    <p>Clone existing VM</p>
+                    <div class="code-block">
+                        <pre><code>qm clone 100 101 --name new-vm</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Creating Containers (LXC)</h2>
+                <p>Lightweight Linux containers use less resources than full VMs</p>
+                
+                <div class="command-item">
+                    <h4>Create Container</h4>
+                    <p>Create LXC container</p>
+                    <div class="code-block">
+                        <pre><code>pct create 200 local:vztmpl/debian-12-standard_amd64.tar.zst --rootfs local-lvm:10G --hostname my-container --password secret --net0 name=eth0,bridge=vmbr0</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List Containers</h4>
+                    <p>Show all LXC containers</p>
+                    <div class="code-block">
+                        <pre><code>pct list</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Start Container</h4>
+                    <p>Launch container</p>
+                    <div class="code-block">
+                        <pre><code>pct start 200</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Stop Container</h4>
+                    <p>Shutdown container</p>
+                    <div class="code-block">
+                        <pre><code>pct stop 200</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Enter Container</h4>
+                    <p>Access container shell</p>
+                    <div class="code-block">
+                        <pre><code>pct enter 200</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Storage Management</h2>
+                
+                <div class="command-item">
+                    <h4>List Storage</h4>
+                    <p>Show available storage</p>
+                    <div class="code-block">
+                        <pre><code>pvesm status</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Add NFS Storage</h4>
+                    <p>Mount network storage</p>
+                    <div class="code-block">
+                        <pre><code>pvesm add nfs shared-nfs --server 192.168.1.100 --export-path /mnt/share</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Cluster Management</h2>
+                
+                <div class="info-box">
+                    <strong>Note:</strong> Proxmox supports clustering multiple nodes together for high availability.
+                </div>
+                
+                <div class="command-item">
+                    <h4>Cluster Status</h4>
+                    <p>View cluster health</p>
+                    <div class="code-block">
+                        <pre><code>pvecm status</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List Nodes</h4>
+                    <p>Show all nodes in cluster</p>
+                    <div class="code-block">
+                        <pre><code>pvesh get /nodes</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Backups and Disaster Recovery</h2>
+                
+                <div class="command-item">
+                    <h4>Backup VM</h4>
+                    <p>Create backup of VM</p>
+                    <div class="code-block">
+                        <pre><code>vzdump 100 --storage local --mode snapshot</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Restore VM</h4>
+                    <p>Restore from backup</p>
+                    <div class="code-block">
+                        <pre><code>qmrestore vzdump-qemu-100.vma 100 --storage local</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Networking Basics</h2>
+                
+                <div class="command-item">
+                    <h4>List Network Config</h4>
+                    <p>Show network interfaces</p>
+                    <div class="code-block">
+                        <pre><code>ip addr</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Show Bridges</h4>
+                    <p>View network bridges</p>
+                    <div class="code-block">
+                        <pre><code>brctl show</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Useful Tips</h2>
+                
+                <div class="success-box">
+                    <strong>Access Shell:</strong> Access Proxmox node shell
+                    <div class="code-block">
+                        <pre><code>bash</code></pre>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Important:</strong> Always backup your VMs before major changes!
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Applications Guide. Built for educational purposes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

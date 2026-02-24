@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands - Self-Hosted Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🖥️ Self-Host Hub</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="linux.html" class="active">Linux Commands</a></li>
+            <li><a href="virtualisation.html">Virtualisation</a></li>
+            <li><a href="networking.html">Networking</a></li>
+        </ul>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search commands...">
+            <button id="searchBtn">🔍</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <a href="index.html" class="back-link">Back to Home</a>
+        
+        <div class="content-header">
+            <h1>🐧 Linux Commands</h1>
+            <p>Master essential Linux commands for server management</p>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>File System Navigation</h2>
+            
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4>📁 List Contents</h4>
+                    <code onclick="copyToClipboard('ls')">ls</code>
+                    <p>List directory contents</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📋 List All Files</h4>
+                    <code onclick="copyToClipboard('ls -la')">ls -la</code>
+                    <p>List all files with details</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>🔄 Change Directory</h4>
+                    <code onclick="copyToClipboard('cd [dir]')">cd [dir]</code>
+                    <p>Change to specified directory</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📍 Print Directory</h4>
+                    <code onclick="copyToClipboard('pwd')">pwd</code>
+                    <p>Print working directory</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>➕ Create Directory</h4>
+                    <code onclick="copyToClipboard('mkdir [name]')">mkdir [name]</code>
+                    <p>Create a new directory</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>➖ Remove Directory</h4>
+                    <code onclick="copyToClipboard('rmdir [name]')">rmdir [name]</code>
+                    <p>Remove empty directory</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>File Operations</h2>
+            
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4>📄 Copy File</h4>
+                    <code onclick="copyToClipboard('cp [src] [dest]')">cp [src] [dest]</code>
+                    <p>Copy files from source to destination</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📂 Copy Directory</h4>
+                    <code onclick="copyToClipboard('cp -r [src] [dest]')">cp -r [src] [dest]</code>
+                    <p>Copy directories recursively</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>✏️ Move/Rename</h4>
+                    <code onclick="copyToClipboard('mv [src] [dest]')">mv [src] [dest]</code>
+                    <p>Move or rename files and directories</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>🗑️ Remove File</h4>
+                    <code onclick="copyToClipboard('rm [file]')">rm [file]</code>
+                    <p>Remove a file</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>💥 Force Remove</h4>
+                    <code onclick="copyToClipboard('rm -rf [dir]')">rm -rf [dir]</code>
+                    <p>Force remove directory and contents</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📝 Create File</h4>
+                    <code onclick="copyToClipboard('touch [file]')">touch [file]</code>
+                    <p>Create an empty file</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📖 View File</h4>
+                    <code onclick="copyToClipboard('cat [file]')">cat [file]</code>
+                    <p>Display file contents</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📑 Paginated View</h4>
+                    <code onclick="copyToClipboard('less [file]')">less [file]</code>
+                    <p>View file with pagination</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>User & Permissions</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code onclick="copyToClipboard('whoami')">whoami</code></td>
+                    <td class="command-description">Display current user</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('sudo [cmd]')">sudo [cmd]</code></td>
+                    <td class="command-description">Run command as root</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('adduser [name]')">adduser [name]</code></td>
+                    <td class="command-description">Add new user</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('passwd [user]')">passwd [user]</code></td>
+                    <td class="command-description">Change user password</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('chmod 755 [file]')">chmod 755 [file]</code></td>
+                    <td class="command-description">Change file permissions</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('chown user:group [file]')">chown user:group [file]</code></td>
+                    <td class="command-description">Change file owner</td>
+                </tr>
+            </table>
+            
+            <h3>Permission Examples:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Permission examples:</span>
+<span class="command">chmod</span> 755 script.sh        <span class="comment"># rwxr-xr-x</span>
+<span class="command">chmod</span> +x script.sh         <span class="comment"># Add execute permission</span>
+<span class="command">chmod</span> -R 755 folder/      <span class="comment"># Recursive permissions</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>System Monitoring</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code onclick="copyToClipboard('top')">top</code></td>
+                    <td class="command-description">View running processes</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('htop')">htop</code></td>
+                    <td class="command-description">Interactive process viewer</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('ps aux')">ps aux</code></td>
+                    <td class="command-description">List all processes</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('kill [pid]')">kill [pid]</code></td>
+                    <td class="command-description">Kill process by ID</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('df -h')">df -h</code></td>
+                    <td class="command-description">Disk usage (human readable)</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('free -h')">free -h</code></td>
+                    <td class="command-description">Memory usage</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('uptime')">uptime</code></td>
+                    <td class="command-description">System uptime</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Package Management</h2>
+            
+            <h3>APT (Debian/Ubuntu)</h3>
+            <div class="code-block">
+                <code><span class="command">sudo</span> apt update              <span class="comment"># Update package list</span>
+<span class="command">sudo</span> apt upgrade             <span class="comment"># Upgrade packages</span>
+<span class="command">sudo</span> apt install [pkg]       <span class="comment"># Install package</span>
+<span class="command">sudo</span> apt remove [pkg]        <span class="comment"># Remove package</span>
+<span class="command">sudo</span> apt search [term]       <span class="comment"># Search packages</span></code>
+            </div>
+            
+            <h3>YUM/DNF (RHEL/CentOS/Fedora)</h3>
+            <div class="code-block">
+                <code><span class="command">sudo</span> dnf update             <span class="comment"># Update packages</span>
+<span class="command">sudo</span> dnf install [pkg]      <span class="comment"># Install package</span>
+<span class="command">sudo</span> dnf remove [pkg]       <span class="comment"># Remove package</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Service Management</h2>
+            
+            <div class="code-block">
+                <code><span class="comment"># Systemd (most modern distros)</span>
+<span class="command">sudo</span> systemctl start nginx      <span class="comment"># Start service</span>
+<span class="command">sudo</span> systemctl stop nginx       <span class="comment"># Stop service</span>
+<span class="command">sudo</span> systemctl restart nginx   <span class="comment"># Restart service</span>
+<span class="command">sudo</span> systemctl status nginx     <span class="comment"># Check status</span>
+<span class="command">sudo</span> systemctl enable nginx     <span class="comment"># Enable on boot</span>
+<span class="command">sudo</span> systemctl disable nginx    <span class="comment"># Disable on boot</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>SSH & Remote Access</h2>
+            
+            <div class="code-block">
+                <code><span class="comment"># Connect to remote server</span>
+<span class="command">ssh</span> user@hostname
+<span class="command">ssh</span> -p 2222 user@hostname    <span class="comment"># Custom port</span>
+<span class="command">ssh</span> -i key.pem user@host     <span class="comment"># SSH key auth</span>
+
+<span class="comment"># Copy files over SSH</span>
+<span class="command">scp</span> file.txt user@host:/path/
+<span class="command">scp</span> -r folder/ user@host:/path/
+
+<span class="comment"># SSH key generation</span>
+<span class="command">ssh-keygen</span> -t rsa -b 4096</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Useful Shortcuts</h2>
+            
+            <div class="quick-reference">
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('Ctrl + C')">Ctrl + C</code>
+                    <p>Cancel command</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('Ctrl + L')">Ctrl + L</code>
+                    <p>Clear screen</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('Ctrl + A')">Ctrl + A</code>
+                    <p>Line start</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('Ctrl + E')">Ctrl + E</code>
+                    <p>Line end</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('Tab')">Tab</code>
+                    <p>Auto-complete</p>
+                </div>
+                <div class="quick-ref-item">
+                    <code onclick="copyToClipboard('man [cmd]')">man [cmd]</code>
+                    <p>Command manual</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
+    </footer>
+
+    <div id="searchResults" class="search-results"></div>
+    <script src="script.js"></script>
+</body>
+</html>

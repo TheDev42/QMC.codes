@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands - Self-Hosted Applications Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">SelfHost Guide</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search commands...">
+                <button id="searchBtn">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docker.html">Docker</a></li>
+                <li><a href="linux.html" class="active">Linux Commands</a></li>
+                <li><a href="proxmox.html">Proxmox</a></li>
+                <li><a href="networking.html">Networking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-page">
+            <h1>💻 Linux Commands Guide</h1>
+            
+            <section>
+                <h2>Getting Started with Linux</h2>
+                <p>This guide covers essential Linux commands for managing your self-hosted server. These commands work on most Debian-based distributions (Ubuntu, Debian) and many other Linux distros.</p>
+                
+                <div class="info-box">
+                    <strong>Tip:</strong> Practice these commands in a safe environment before using them on a production server.
+                </div>
+            </section>
+
+            <section>
+                <h2>Package Management</h2>
+                
+                <div class="command-item">
+                    <h4>Update Package List</h4>
+                    <p>Refresh the list of available packages from repositories</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt update</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Upgrade All Packages</h4>
+                    <p>Install latest versions of all installed packages</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt upgrade -y</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Install Package</h4>
+                    <p>Install a new package</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt install nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove Package</h4>
+                    <p>Remove an installed package</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt remove nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Full System Upgrade</h4>
+                    <p>Complete system upgrade including kernel</p>
+                    <div class="code-block">
+                        <pre><code>sudo apt dist-upgrade -y</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>File and Directory Operations</h2>
+                
+                <div class="command-item">
+                    <h4>List Files</h4>
+                    <p>List all files in current directory</p>
+                    <div class="code-block">
+                        <pre><code>ls -lah</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Change Directory</h4>
+                    <p>Navigate to a directory</p>
+                    <div class="code-block">
+                        <pre><code>cd /var/www/html</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Create Directory</h4>
+                    <p>Create a new directory</p>
+                    <div class="code-block">
+                        <pre><code>mkdir myproject</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Copy File</h4>
+                    <p>Copy a file</p>
+                    <div class="code-block">
+                        <pre><code>cp source.txt destination.txt</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Move/Rename File</h4>
+                    <p>Move or rename a file</p>
+                    <div class="code-block">
+                        <pre><code>mv oldname.txt newname.txt</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove File</h4>
+                    <p>Delete a file</p>
+                    <div class="code-block">
+                        <pre><code>rm file.txt</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove Directory</h4>
+                    <p>Force remove a directory and contents</p>
+                    <div class="code-block">
+                        <pre><code>rm -rf myfolder</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Viewing and Editing Files</h2>
+                
+                <div class="command-item">
+                    <h4>View File Content</h4>
+                    <p>Display contents of a file</p>
+                    <div class="code-block">
+                        <pre><code>cat file.txt</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>View File Page by Page</h4>
+                    <p>View file with pagination</p>
+                    <div class="code-block">
+                        <pre><code>less file.txt</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Edit with Nano</h4>
+                    <p>Edit file using nano (beginner-friendly)</p>
+                    <div class="code-block">
+                        <pre><code>sudo nano /etc/nginx/nginx.conf</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Edit with Vim</h4>
+                    <p>Edit file using vim</p>
+                    <div class="code-block">
+                        <pre><code>sudo vim /etc/nginx/nginx.conf</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Find Files</h4>
+                    <p>Search for files by name</p>
+                    <div class="code-block">
+                        <pre><code>find /home -name "*.txt"</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Grep Search</h4>
+                    <p>Search for text in files</p>
+                    <div class="code-block">
+                        <pre><code>grep "search term" file.txt</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>System Information</h2>
+                
+                <div class="command-item">
+                    <h4>System Information</h4>
+                    <p>Display system information</p>
+                    <div class="code-block">
+                        <pre><code>uname -a</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Disk Usage</h4>
+                    <p>Show disk space usage</p>
+                    <div class="code-block">
+                        <pre><code>df -h</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Memory Usage</h4>
+                    <p>Display memory usage</p>
+                    <div class="code-block">
+                        <pre><code>free -h</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>CPU Usage</h4>
+                    <p>View real-time CPU and process info</p>
+                    <div class="code-block">
+                        <pre><code>top</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>System Uptime</h4>
+                    <p>Show how long system has been running</p>
+                    <div class="code-block">
+                        <pre><code>uptime</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Process Management</h2>
+                
+                <div class="command-item">
+                    <h4>List Processes</h4>
+                    <p>List all running processes</p>
+                    <div class="code-block">
+                        <pre><code>ps aux</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Kill Process</h4>
+                    <p>Terminate a process by PID</p>
+                    <div class="code-block">
+                        <pre><code>kill -9 [PID]</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Kill Process by Name</h4>
+                    <p>Kill process by name</p>
+                    <div class="code-block">
+                        <pre><code>pkill nginx</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Service Management</h2>
+                
+                <div class="command-item">
+                    <h4>Check Service Status</h4>
+                    <p>Check if a service is running</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemctl status nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Start Service</h4>
+                    <p>Start a service</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemctl start nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Stop Service</h4>
+                    <p>Stop a service</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemctl stop nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Restart Service</h4>
+                    <p>Restart a service</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemctl restart nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Enable Service on Boot</h4>
+                    <p>Start service automatically on boot</p>
+                    <div class="code-block">
+                        <pre><code>sudo systemctl enable nginx</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Networking Commands</h2>
+                
+                <div class="command-item">
+                    <h4>Check IP Address</h4>
+                    <p>Display network interface IP addresses</p>
+                    <div class="code-block">
+                        <pre><code>ip addr</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Check Open Ports</h4>
+                    <p>List all listening ports</p>
+                    <div class="code-block">
+                        <pre><code>sudo netstat -tulpn</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Ping Test</h4>
+                    <p>Test network connectivity</p>
+                    <div class="code-block">
+                        <pre><code>ping -c 4 google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Trace Route</h4>
+                    <p>Show route to destination</p>
+                    <div class="code-block">
+                        <pre><code>traceroute google.com</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Test Port</h4>
+                    <p>Test if port is open</p>
+                    <div class="code-block">
+                        <pre><code>nc -zv example.com 80</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>File Permissions</h2>
+                
+                <div class="command-item">
+                    <h4>Change Permissions</h4>
+                    <p>Set file permissions (rwxr-xr-x)</p>
+                    <div class="code-block">
+                        <pre><code>chmod 755 script.sh</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Change Owner</h4>
+                    <p>Change file/directory ownership</p>
+                    <div class="code-block">
+                        <pre><code>sudo chown www-data:www-data /var/www</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>User Management</h2>
+                
+                <div class="command-item">
+                    <h4>Create User</h4>
+                    <p>Create a new user</p>
+                    <div class="code-block">
+                        <pre><code>sudo adduser username</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Add User to Sudo</h4>
+                    <p>Give user sudo privileges</p>
+                    <div class="code-block">
+                        <pre><code>sudo usermod -aG sudo username</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Logs and Monitoring</h2>
+                
+                <div class="command-item">
+                    <h4>View System Logs</h4>
+                    <p>Follow system log in real-time</p>
+                    <div class="code-block">
+                        <pre><code>sudo tail -f /var/log/syslog</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>View Nginx Logs</h4>
+                    <p>View Nginx access logs</p>
+                    <div class="code-block">
+                        <pre><code>sudo tail -f /var/log/nginx/access.log</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Archives and Compression</h2>
+                
+                <div class="command-item">
+                    <h4>Create Archive</h4>
+                    <p>Create compressed tar archive</p>
+                    <div class="code-block">
+                        <pre><code>tar -czvf archive.tar.gz /folder</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Extract Archive</h4>
+                    <p>Extract compressed archive</p>
+                    <div class="code-block">
+                        <pre><code>tar -xzvf archive.tar.gz</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Download Files</h2>
+                
+                <div class="command-item">
+                    <h4>Download with Wget</h4>
+                    <p>Download file from URL</p>
+                    <div class="code-block">
+                        <pre><code>wget https://example.com/file.zip</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Download with Curl</h4>
+                    <p>Download file using curl</p>
+                    <div class="code-block">
+                        <pre><code>curl -O https://example.com/file.zip</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Applications Guide. Built for educational purposes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self-Hosted Applications - Learn Docker & Linux</title>
+    <title>Self-Hosted Applications - Learn Docker, Linux & More</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
+        <div class="logo">🖥️ Self-Host Hub</div>
         <ul class="nav-links">
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="docker.html">Docker</a></li>
             <li><a href="linux.html">Linux Commands</a></li>
+            <li><a href="virtualisation.html">Virtualisation</a></li>
             <li><a href="networking.html">Networking</a></li>
         </ul>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search commands...">
+            <button id="searchBtn">🔍</button>
+        </div>
         <div class="hamburger">
             <span></span>
             <span></span>
@@ -25,15 +31,11 @@
     <header class="hero">
         <div class="hero-content">
             <h1 class="fade-in">Welcome to Self-Hosted Applications</h1>
-            <p class="fade-in-delay">Learn how to host your own applications using Docker and Linux</p>
+            <p class="fade-in-delay">Learn how to host your own applications using Docker, Linux, Virtualisation & Networking</p>
             <div class="hero-buttons fade-in-delay-2">
                 <a href="docker.html" class="btn btn-primary">Get Started with Docker</a>
                 <a href="linux.html" class="btn btn-secondary">Learn Linux Commands</a>
             </div>
-        </div>
-        <div class="hero-animation">
-            <div class="docker-icon"></div>
-            <div class="linux-icon"></div>
         </div>
     </header>
 
@@ -50,10 +52,15 @@
                 <h3>Linux Commands</h3>
                 <p>Master the command line to manage your server effectively</p>
             </div>
+            <div class="feature-card" onclick="window.location.href='virtualisation.html'">
+                <div class="feature-icon">🖥️</div>
+                <h3>Virtualisation</h3>
+                <p>Learn about VMs, containers, and Proxmox</p>
+            </div>
             <div class="feature-card" onclick="window.location.href='networking.html'">
                 <div class="feature-icon">🌐</div>
                 <h3>Networking</h3>
-                <p>Set up networking for your containers and expose services safely</p>
+                <p>Set up networking, routers, and understand physical networking</p>
             </div>
         </div>
     </section>
@@ -85,9 +92,10 @@
     </section>
 
     <footer>
-        <p>&copy; Built By Callum from the UK.</p>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
     </footer>
 
+    <div id="searchResults" class="search-results"></div>
     <script src="script.js"></script>
 </body>
 </html>

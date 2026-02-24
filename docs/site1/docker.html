@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker - Self-Hosted Applications Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">SelfHost Guide</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search commands...">
+                <button id="searchBtn">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docker.html" class="active">Docker</a></li>
+                <li><a href="linux.html">Linux Commands</a></li>
+                <li><a href="proxmox.html">Proxmox</a></li>
+                <li><a href="networking.html">Networking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-page">
+            <h1>🐳 Docker - Containerization Guide</h1>
+            
+            <section>
+                <h2>What is Docker?</h2>
+                <p>Docker is an open platform for developing, shipping, and running applications using containerization technology. Containers are lightweight and contain everything needed to run the software.</p>
+                
+                <div class="info-box">
+                    <strong>Key Concept:</strong> Docker allows you to package an application with all of its dependencies into a standardized unit called a container.
+                </div>
+            </section>
+
+            <section>
+                <h2>Installing Docker</h2>
+                
+                <h3>Ubuntu/Debian</h3>
+                <div class="code-block">
+                    <pre><code>curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh</code></pre>
+                </div>
+                
+                <h3>Start and Enable Docker</h3>
+                <div class="code-block">
+                    <pre><code>sudo systemctl start docker
+sudo systemctl enable docker</code></pre>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Note:</strong> It's recommended to add your user to the docker group to run Docker without sudo:
+                    <br><code>sudo usermod -aG docker $USER</code>
+                </div>
+            </section>
+
+            <section>
+                <h2>Basic Docker Commands</h2>
+                
+                <div class="command-item">
+                    <h4>Pull an Image</h4>
+                    <p>Download a Docker image from Docker Hub</p>
+                    <div class="code-block">
+                        <pre><code>docker pull nginx:latest</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List Images</h4>
+                    <p>View all locally stored Docker images</p>
+                    <div class="code-block">
+                        <pre><code>docker images</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Run a Container</h4>
+                    <p>Start a new container from an image</p>
+                    <div class="code-block">
+                        <pre><code>docker run -d --name my-nginx -p 80:80 nginx:latest</code></pre>
+                    </div>
+                    <ul>
+                        <li><code>-d</code> - Run in detached mode (background)</li>
+                        <li><code>--name</code> - Assign a name to the container</li>
+                        <li><code>-p 80:80</code> - Map port 80 (host) to port 80 (container)</li>
+                    </ul>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List Running Containers</h4>
+                    <p>Show all running Docker containers</p>
+                    <div class="code-block">
+                        <pre><code>docker ps</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>List All Containers</h4>
+                    <p>Show all containers (running and stopped)</p>
+                    <div class="code-block">
+                        <pre><code>docker ps -a</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Stop a Container</h4>
+                    <p>Stop a running container</p>
+                    <div class="code-block">
+                        <pre><code>docker stop my-nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Start a Container</h4>
+                    <p>Start a stopped container</p>
+                    <div class="code-block">
+                        <pre><code>docker start my-nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Remove a Container</h4>
+                    <p>Delete a stopped container</p>
+                    <div class="code-block">
+                        <pre><code>docker rm my-nginx</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>View Logs</h4>
+                    <p>View logs from a container</p>
+                    <div class="code-block">
+                        <pre><code>docker logs -f my-nginx</code></pre>
+                    </div>
+                    <p>Use <code>-f</code> to follow logs in real-time</p>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Execute Command in Container</h4>
+                    <p>Run commands inside a running container</p>
+                    <div class="code-block">
+                        <pre><code>docker exec -it my-nginx bash</code></pre>
+                    </div>
+                    <ul>
+                        <li><code>-i</code> - Interactive mode</li>
+                        <li><code>-t</code> - Allocate a pseudo-TTY</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Docker Volumes</h2>
+                <p>Volumes persist data outside containers</p>
+                
+                <div class="command-item">
+                    <h4>Create a Volume</h4>
+                    <div class="code-block">
+                        <pre><code>docker volume create my-data</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Mount Volume to Container</h4>
+                    <div class="code-block">
+                        <pre><code>docker run -d --name my-app -v my-data:/app/data nginx:latest</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Docker Networking</h2>
+                
+                <div class="command-item">
+                    <h4>Create a Network</h4>
+                    <div class="code-block">
+                        <pre><code>docker network create my-network</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Connect Container to Network</h4>
+                    <div class="code-block">
+                        <pre><code>docker network connect my-network my-nginx</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Docker Compose</h2>
+                <p>Docker Compose lets you define and run multi-container applications</p>
+                
+                <h3>Example docker-compose.yml</h3>
+                <div class="code-block">
+                    <pre><code>version: '3.8'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    restart: unless-stopped
+  
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: app
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  db-data:</code></pre>
+                </div>
+                
+                <h3>Docker Compose Commands</h3>
+                <div class="command-item">
+                    <h4>Start Services</h4>
+                    <div class="code-block">
+                        <pre><code>docker-compose up -d</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Stop Services</h4>
+                    <div class="code-block">
+                        <pre><code>docker-compose down</code></pre>
+                    </div>
+                </div>
+                
+                <div class="command-item">
+                    <h4>View Logs</h4>
+                    <div class="code-block">
+                        <pre><code>docker-compose logs -f</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Dockerfile</h2>
+                <p>A Dockerfile is a script with instructions to build a Docker image</p>
+                
+                <div class="code-block">
+                    <pre><code># Use official Node.js image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Start application
+CMD ["npm", "start"]</code></pre>
+                </div>
+                
+                <div class="command-item">
+                    <h4>Build Image from Dockerfile</h4>
+                    <div class="code-block">
+                        <pre><code>docker build -t my-app:latest .</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Useful Docker Tips</h2>
+                
+                <div class="success-box">
+                    <strong>Container Resource Stats:</strong> Monitor CPU and memory usage
+                    <div class="code-block">
+                        <pre><code>docker stats</code></pre>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <strong>Clean Up:</strong> Remove unused containers, networks, and images
+                    <div class="code-block">
+                        <pre><code>docker system prune -a</code></pre>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <strong>Useful Flag:</strong> View all Docker commands
+                    <div class="code-block">
+                        <pre><code>docker --help</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Applications Guide. Built for educational purposes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

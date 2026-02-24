@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtualisation - Self-Hosted Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🖥️ Self-Host Hub</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="linux.html">Linux Commands</a></li>
+            <li><a href="virtualisation.html" class="active">Virtualisation</a></li>
+            <li><a href="networking.html">Networking</a></li>
+        </ul>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search commands...">
+            <button id="searchBtn">🔍</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <a href="index.html" class="back-link">Back to Home</a>
+        
+        <div class="content-header">
+            <h1>🖥️ Virtualisation</h1>
+            <p>Learn about virtual machines, containers, and Proxmox</p>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>What is Virtualisation?</h2>
+            <p>Virtualisation allows you to run multiple virtual computers (VMs) on a single physical server. Each VM runs its own operating system, completely isolated from others.</p>
+            
+            <div class="tip-box">
+                <strong>💡 Key Benefit:</strong> Virtualisation maximises hardware utilisation by running multiple VMs on a single server.
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Virtual Machines vs Containers</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Virtual Machine</th>
+                    <th>Container</th>
+                </tr>
+                <tr>
+                    <td><strong>OS</strong></td>
+                    <td>Full OS required</td>
+                    <td>Shares host kernel</td>
+                </tr>
+                <tr>
+                    <td><strong>Size</strong></td>
+                    <td>GBs (several GBs)</td>
+                    <td>MBs (lightweight)</td>
+                </tr>
+                <tr>
+                    <td><strong>Startup</strong></td>
+                    <td>Minutes</td>
+                    <td>Seconds</td>
+                </tr>
+                <tr>
+                    <td><strong>Isolation</strong></td>
+                    <td>Full isolation</td>
+                    <td>Process level</td>
+                </tr>
+                <tr>
+                    <td><strong>Examples</strong></td>
+                    <td>VMware, VirtualBox, Proxmox</td>
+                    <td>Docker, Podman</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Proxmox VE</h2>
+            <p>Proxmox Virtual Environment is an open-source server virtualisation platform based on Debian Linux.</p>
+            
+            <h3>Key Features:</h3>
+            <ul>
+                <li>Type 1 hypervisor (runs directly on hardware)</li>
+                <li>Supports both VMs and containers (LXC)</li>
+                <li>Web-based management interface</li>
+                <li>High availability clustering</li>
+                <li>Live migration of VMs</li>
+                <li>Built-in backup and restore</li>
+            </ul>
+            
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Proxmox can run on a simple Intel NUC or old desktop PC - great for home labs!
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Installing Proxmox VE</h2>
+            
+            <h3>System Requirements:</h3>
+            <ul>
+                <li>CPU: 64-bit (Intel VT-x/AMD-V required for VMs)</li>
+                <li>RAM: Minimum 2GB (8GB+ recommended)</li>
+                <li>Storage: Minimum 32GB (SSD recommended)</li>
+                <li>Network: Ethernet adapter</li>
+            </ul>
+            
+            <h3>Installation Steps:</h3>
+            <div class="code-block">
+                <code><span class="comment"># 1. Download Proxmox VE ISO from proxmox.com</span>
+<span class="comment"># 2. Create bootable USB with ISO</span>
+<span class="comment"># 3. Boot from USB and follow installer</span>
+<span class="comment"># 4. Access web interface:</span>
+https://your-ip-address:8006</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Proxmox Basic Commands</h2>
+            
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4>📋 List VMs</h4>
+                    <code onclick="copyToClipboard('qm list')">qm list</code>
+                    <p>List all virtual machines</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>▶️ Start VM</h4>
+                    <code onclick="copyToClipboard('qm start [vmid]')">qm start [vmid]</code>
+                    <p>Start virtual machine</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>⏹️ Stop VM</h4>
+                    <code onclick="copyToClipboard('qm stop [vmid]')">qm stop [vmid]</code>
+                    <p>Stop virtual machine</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>🗑️ Delete VM</h4>
+                    <code onclick="copyToClipboard('qm destroy [vmid]')">qm destroy [vmid]</code>
+                    <p>Delete virtual machine</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>📊 Storage Status</h4>
+                    <code onclick="copyToClipboard('pvesm status')">pvesm status</code>
+                    <p>Show storage status</p>
+                </div>
+
+                <div class="command-card">
+                    <h4>🖥️ Cluster Status</h4>
+                    <code onclick="copyToClipboard('pvecm status')">pvecm status</code>
+                    <p>Show cluster status</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Creating a VM in Proxmox</h2>
+            
+            <h3>Via Web Interface:</h3>
+            <ol>
+                <li>Log into Proxmox web interface</li>
+                <li>Click "Create VM" button</li>
+                <li>Give VM a name and select OS template</li>
+                <li>Allocate CPU, RAM, and storage</li>
+                <li>Configure network settings</li>
+                <li>Click "Create" and then "Start"</li>
+            </ol>
+            
+            <h3>Via Command Line:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Create VM with ID 100</span>
+<span class="command">qm</span> create 100 \
+  <span class="flag">--name</span> my-vm \
+  <span class="flag">--memory</span> 2048 \
+  <span class="flag">--cores</span> 2 \
+  <span class="flag">--net0</span> virtio,bridge=vmbr0 \
+  <span class="flag">--ostype</span> l26
+
+<span class="comment"># Attach ISO</span>
+<span class="command">qm</span> set 100 <span class="flag">--cdrom</span> local:iso/ubuntu.iso
+
+<span class="comment"># Start VM</span>
+<span class="command">qm</span> start 100</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>LXC Containers in Proxmox</h2>
+            <p>LXC (Linux Containers) are lightweight containers similar to Docker but with a full Linux filesystem.</p>
+            
+            <h3>Benefits of LXC:</h3>
+            <ul>
+                <li>Lightweight - uses less resources than VMs</li>
+                <li>Fast to create and start</li>
+                <li>Full Linux OS with systemd</li>
+                <li>Can run Docker inside LXC</li>
+            </ul>
+            
+            <h3>Create LXC Container:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Create container from template</span>
+<span class="command">pct</span> create 100 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.gz
+
+<span class="comment"># Start container</span>
+<span class="command">pct</span> start 100
+
+<span class="comment"># Access container console</span>
+<span class="command">pct</span> enter 100</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Proxmox Networking</h2>
+            
+            <h3>Network Bridges:</h3>
+            <div class="code-block">
+                <code><span class="comment"># View network configuration</span>
+<span class="command">cat</span> /etc/network/interfaces
+
+<span class="comment"># Example bridge configuration</span>
+<span class="command">auto</span> vmbr0
+<span class="command">iface</span> vmbr0 inet static
+    <span class="command">address</span> 192.168.1.100
+    <span class="command">netmask</span> 255.255.255.0
+    <span class="command">gateway</span> 192.168.1.1
+    <span class="command">bridge-ports</span> eth0
+    <span class="command">bridge-stp</span> off
+    <span class="command">bridge-fd</span> 0</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Proxmox Backup & Restore</h2>
+            
+            <h3>Backup Commands:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Create backup of VM 100</span>
+<span class="command">vzdump</span> 100 <span class="flag">--storage</span> local <span class="flag">--mode</span> suspend
+
+<span class="comment"># Create backup of container 101</span>
+<span class="command">vzdump</span> 101 <span class="flag">--storage</span> local <span class="flag">--mode</span> stop
+
+<span class="comment"># Restore from backup</span>
+<span class="command">qmrestore</span> /var/lib/vz/dump/vzdump-qemu-100.vma 100</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>When to Use What?</h2>
+            
+            <h3>Use Virtual Machines when:</h3>
+            <ul>
+                <li>You need full OS isolation</li>
+                <li>Running Windows or different Linux distro</li>
+                <li>Testing different kernel versions</li>
+                <li>Maximum security isolation required</li>
+            </ul>
+            
+            <h3>Use LXC Containers when:</h3>
+            <ul>
+                <li>You need lightweight virtualisation</li>
+                <li>Running multiple small services</li>
+                <li>Resource efficiency is critical</li>
+                <li>Fast deployment is needed</li>
+            </ul>
+            
+            <h3>Use Docker when:</h3>
+            <ul>
+                <li>Application containerisation</li>
+                <li>Microservices architecture</li>
+                <li>Development environments</li>
+                <li>CI/CD pipelines</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
+    </footer>
+
+    <div id="searchResults" class="search-results"></div>
+    <script src="script.js"></script>
+</body>
+</html>

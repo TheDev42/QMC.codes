@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking - Self-Hosted Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🖥️ Self-Host Hub</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="docker.html">Docker</a></li>
+            <li><a href="linux.html">Linux Commands</a></li>
+            <li><a href="virtualisation.html">Virtualisation</a></li>
+            <li><a href="networking.html" class="active">Networking</a></li>
+        </ul>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search commands...">
+            <button id="searchBtn">🔍</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="content-section">
+        <a href="index.html" class="back-link">Back to Home</a>
+        
+        <div class="content-header">
+            <h1>🌐 Networking</h1>
+            <p>Learn networking concepts, Docker networking, and physical networking</p>
+        </div>
+
+        <!-- Docker Networking Section -->
+        <div class="tutorial-card">
+            <h2>Docker Networking</h2>
+            
+            <h3>Bridge Network (Default)</h3>
+            <div class="code-block">
+                <code><span class="comment"># Run container with port mapping</span>
+<span class="command">docker</span> run <span class="flag">-d</span> <span class="flag">-p</span> 8080:80 nginx
+
+<span class="comment"># Syntax: -p host_port:container_port</span></code>
+            </div>
+            
+            <h3>Network Types:</h3>
+            <table class="command-table">
+                <tr>
+                    <td><code onclick="copyToClipboard('bridge')">bridge</code></td>
+                    <td class="command-description">Default network, containers can communicate</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('host')">host</code></td>
+                    <td class="command-description">Removes network isolation</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('overlay')">overlay</code></td>
+                    <td class="command-description">Multi-host Docker networks</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('none')">none</code></td>
+                    <td class="command-description">Disables all networking</td>
+                </tr>
+            </table>
+            
+            <h3>Create Custom Network:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Create a custom bridge network</span>
+<span class="command">docker</span> network create mynetwork
+
+<span class="comment"># Run container on custom network</span>
+<span class="command">docker</span> run <span class="flag">--network</span> mynetwork <span class="flag">-d</span> nginx
+
+<span class="comment"># List networks</span>
+<span class="command">docker</span> network ls
+
+<span class="comment"># Inspect network</span>
+<span class="command">docker</span> network inspect mynetwork</code>
+            </div>
+        </div>
+
+        <!-- Physical Networking Section -->
+        <div class="tutorial-card">
+            <h2>Physical Networking Basics</h2>
+            
+            <h3>Understanding IP Addresses</h3>
+            <p>An IP address is a unique identifier for each device on a network. IPv4 addresses consist of 4 numbers (0-255) separated by dots.</p>
+            
+            <div class="code-block">
+                <code><span class="comment"># Example IPv4 addresses</span>
+192.168.1.1       <span class="comment"># Private IP (home router)</span>
+10.0.0.1          <span class="comment"># Private IP (large network)</span>
+172.16.0.1        <span class="comment"># Private IP (medium network)</span>
+8.8.8.8           <span class="comment"># Public IP (Google DNS)</span></code>
+            </div>
+            
+            <h3>IP Address Classes:</h3>
+            <table class="command-table">
+                <tr>
+                    <td><code>Class A</code></td>
+                    <td class="command-description">1.0.0.1 - 126.255.255.254 (large networks)</td>
+                </tr>
+                <tr>
+                    <td><code>Class B</code></td>
+                    <td class="command-description">128.0.0.1 - 191.255.255.254 (medium networks)</td>
+                </tr>
+                <tr>
+                    <td><code>Class C</code></td>
+                    <td class="command-description">192.0.0.1 - 223.255.255.254 (small networks)</td>
+                </tr>
+                <tr>
+                    <td><code>Class D</code></td>
+                    <td class="command-description">224.0.0.0 - 239.255.255.255 (multicast)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Subnetting</h2>
+            <p>Subnetting divides a network into smaller networks. The subnet mask determines how many hosts per network.</p>
+            
+            <h3>Common Subnet Masks:</h3>
+            <table class="command-table">
+                <tr>
+                    <td><code>/24</code></td>
+                    <td class="command-description">255.255.255.0 - 254 hosts</td>
+                </tr>
+                <tr>
+                    <td><code>/25</code></td>
+                    <td class="command-description">255.255.255.128 - 126 hosts</td>
+                </tr>
+                <tr>
+                    <td><code>/26</code></td>
+                    <td class="command-description">255.255.255.192 - 62 hosts</td>
+                </tr>
+                <tr>
+                    <td><code>/27</code></td>
+                    <td class="command-description">255.255.255.224 - 30 hosts</td>
+                </tr>
+                <tr>
+                    <td><code>/28</code></td>
+                    <td class="command-description">255.255.255.240 - 14 hosts</td>
+                </tr>
+                <tr>
+                    <td><code>/30</code></td>
+                    <td class="command-description">255.255.255.252 - 2 hosts (point-to-point)</td>
+                </tr>
+            </table>
+            
+            <div class="tip-box">
+                <strong>💡 Example:</strong> Network 192.168.1.0/24 can have 254 devices (192.168.1.1 to 192.168.1.254)
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Network Routers</h2>
+            <p>A router connects different networks and directs traffic between them. Your home router connects your local network to the internet.</p>
+            
+            <h3>How Routers Work:</h3>
+            <ul>
+                <li><strong>Gateway:</strong> The router's IP on your local network (usually .1)</li>
+                <li><strong>Routing Table:</strong> Decisions on where to send packets</li>
+                <li><strong>NAT:</strong> Network Address Translation (translates local IPs to public)</li>
+                <li><strong>DHCP:</strong> Automatically assigns IP addresses to devices</li>
+            </ul>
+            
+            <h3>Common Router IP Addresses:</h3>
+            <div class="command-grid">
+                <div class="command-card">
+                    <h4>Default Gateway</h4>
+                    <code onclick="copyToClipboard('192.168.1.1')">192.168.1.1</code>
+                    <p>Most common router IP</p>
+                </div>
+                <div class="command-card">
+                    <h4>Alternative Gateway</h4>
+                    <code onclick="copyToClipboard('192.168.0.1')">192.168.0.1</code>
+                    <p>Some router models</p>
+                </div>
+                <div class="command-card">
+                    <h4>Linksys/DD-WRT</h4>
+                    <code onclick="copyToClipboard('192.168.1.1')">192.168.1.1</code>
+                    <p>Default for Linksys</p>
+                </div>
+                <div class="command-card">
+                    <h4>ASUS Router</h4>
+                    <code onclick="copyToClipboard('router.asus.com')">router.asus.com</code>
+                    <p>ASUS web interface</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Network Switches</h2>
+            <p>A switch connects devices within a single network. Unlike a hub, it sends data only to the intended device.</p>
+            
+            <h3>Types of Switches:</h3>
+            <ul>
+                <li><strong>Unmanaged:</strong> Plug and play, no configuration needed</li>
+                <li><strong>Managed:</strong> Can be configured, VLAN support, QoS</li>
+                <li><strong>Smart/Web-managed:</strong> Basic management features</li>
+            </ul>
+            
+            <h3>Managed Switch Commands (Cisco-like):</h3>
+            <div class="code-block">
+                <code><span class="comment"># View interface status</span>
+<span class="command">show</span> interface status
+
+<span class="comment"># Configure VLAN</span>
+<span class="command">vlan</span> 10
+<span class="command">name</span> IT_DEPARTMENT
+
+<span class="comment"># Assign port to VLAN</span>
+<span class="command">interface</span> GigabitEthernet0/1
+<span class="command">switchport</span> mode access
+<span class="command">switchport</span> access vlan 10</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Port Forwarding</h2>
+            <p>Port forwarding allows external traffic to reach devices on your local network.</p>
+            
+            <div class="network-diagram">
+                <h3>Port Forwarding Diagram</h3>
+                <div class="port-diagram">
+                    <div class="port-box">Internet</div>
+                    <span class="port-arrow">→</span>
+                    <div class="port-box">Router :8080</div>
+                    <span class="port-arrow">→</span>
+                    <div class="port-box">192.168.1.100 :80</div>
+                </div>
+            </div>
+            
+            <h3>Common Ports:</h3>
+            <table class="command-table">
+                <tr>
+                    <td><code onclick="copyToClipboard('80')">80</code></td>
+                    <td class="command-description">HTTP (Web)</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('443')">443</code></td>
+                    <td class="command-description">HTTPS (Secure Web)</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('22')">22</code></td>
+                    <td class="command-description">SSH</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('3389')">3389</code></td>
+                    <td class="command-description">RDP (Windows)</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('32400')">32400</code></td>
+                    <td class="command-description">Plex Media Server</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>UFW Firewall (Ubuntu)</h2>
+            <p>UFW (Uncomplicated Firewall) makes managing iptables rules easy.</p>
+            
+            <h3>Basic Commands:</h3>
+            <div class="code-block">
+                <code><span class="comment"># Enable firewall</span>
+<span class="command">sudo</span> ufw enable
+
+<span class="comment"># Disable firewall</span>
+<span class="command">sudo</span> ufw disable
+
+<span class="comment"># Check status</span>
+<span class="command">sudo</span> ufw status
+
+<span class="comment"># Allow SSH</span>
+<span class="command">sudo</span> ufw allow ssh
+
+<span class="comment"># Allow HTTP/HTTPS</span>
+<span class="command">sudo</span> ufw allow 80/tcp
+<span class="command">sudo</span> ufw allow 443/tcp
+
+<span class="comment"># Allow specific port</span>
+<span class="command">sudo</span> ufw allow 3000/tcp
+
+<span class="comment"># Deny incoming by default</span>
+<span class="command">sudo</span> ufw default deny incoming</code>
+            </div>
+            
+            <div class="warning-box">
+                <strong>⚠️ Warning:</strong> Always allow SSH (port 22) before enabling the firewall, or you may lock yourself out!
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Reverse Proxy with Nginx</h2>
+            <p>A reverse proxy forwards client requests to backend servers.</p>
+            
+            <h3>Nginx Config:</h3>
+            <div class="code-block">
+                <code><span class="keyword">server</span> {
+    <span class="command">listen</span> 80;
+    <span class="command">server_name</span> example.com;
+
+    <span class="command">location</span> / {
+        <span class="command">proxy_pass</span> http://localhost:3000;
+        <span class="command">proxy_set_header</span> Host $host;
+        <span class="command">proxy_set_header</span> X-Real-IP $remote_addr;
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>SSL/HTTPS with Let's Encrypt</h2>
+            
+            <h3>Install Certbot:</h3>
+            <div class="code-block">
+                <code><span class="command">sudo</span> apt update
+<span class="command">sudo</span> apt install certbot python3-certbot-nginx</code>
+            </div>
+            
+            <h3>Get SSL Certificate:</h3>
+            <div class="code-block">
+                <code><span class="comment"># For Nginx</span>
+<span class="command">sudo</span> certbot --nginx -d example.com -d www.example.com
+
+<span class="comment"># Auto-renewal is automatic!</span></code>
+            </div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Network Troubleshooting</h2>
+            
+            <table class="command-table">
+                <tr>
+                    <td><code onclick="copyToClipboard('ip addr')">ip addr</code></td>
+                    <td class="command-description">Show IP addresses</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('ip route')">ip route</code></td>
+                    <td class="command-description">Show routing table</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('ping [host]')">ping [host]</code></td>
+                    <td class="command-description">Test connectivity</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('netstat -tulpn')">netstat -tulpn</code></td>
+                    <td class="command-description">Show listening ports</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('nslookup [domain]')">nslookup [domain]</code></td>
+                    <td class="command-description">DNS lookup</td>
+                </tr>
+                <tr>
+                    <td><code onclick="copyToClipboard('traceroute [host]')">traceroute [host]</code></td>
+                    <td class="command-description">Trace route to host</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>Docker Compose with Networking</h2>
+            
+            <div class="code-block">
+                <code><span class="keyword">version</span>: <span class="string">'3.8'</span>
+
+<span class="keyword">services</span>:
+  <span class="command">nginx</span>:
+    <span class="command">image</span>: <span class="string">nginx:latest</span>
+    <span class="command">ports</span>:
+      - <span class="string">"80:80"</span>
+      - <span class="string">"443:443"</span>
+    <span class="command">networks</span>:
+      - <span class="string">frontend</span>
+
+  <span class="command">app</span>:
+    <span class="command">build</span>: .
+    <span class="command">networks</span>:
+      - <span class="string">frontend</span>
+      - <span class="string">backend</span>
+
+  <span class="command">database</span>:
+    <span class="command">image</span>: <span class="string">postgres:14</span>
+    <span class="command">networks</span>:
+      - <span class="string">backend</span>
+
+<span class="keyword">networks</span>:
+  <span class="command">frontend</span>:
+  <span class="command">backend</span>:</code>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Self-Hosted Hub. Built for learning.</p>
+    </footer>
+
+    <div id="searchResults" class="search-results"></div>
+    <script src="script.js"></script>
+</body>
+</html>
